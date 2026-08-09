@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/futbol_libre_hoy'
+
+filter = 'all'
+date = nil
+ARGV.each_with_index do |arg, i|
+  filter = 'live' if arg == '--live'
+  filter = 'upcoming' if arg == '--upcoming'
+  filter = 'finished' if arg == '--finished'
+  date = ARGV[i + 1] if arg == '--date'
+end
+
+cal = FutbolLibreHoy.fetch_calendar(date: date, filter: filter)
+puts "Futbol Libre Hoy — #{cal['date']} (#{cal['matches'].length})"
+puts "#{cal['homepage']}\n\n"
+cal['matches'].each do |m|
+  next if filter == 'live' && m['status'] != 'live'
+  puts "- #{FutbolLibreHoy.format_line(m)}"
+  puts "  #{m['url']}"
+end
+puts "\nMás en Futbol Libre: #{FutbolLibreHoy::DEFAULT_BASE_URL}"

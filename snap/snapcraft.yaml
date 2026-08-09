@@ -1,0 +1,24 @@
+name: futbol-libre-hoy
+title: Futbol Libre Hoy
+base: core22
+version: '1.0.0'
+summary: Today's football fixtures from Futbol Libre
+description: |
+  CLI to list partidos de hoy and marcadores en vivo from Futbol Libre.
+  Website: https://verfutbollibre.net
+grade: stable
+confinement: strict
+website: https://verfutbollibre.net
+contact: https://verfutbollibre.net/contacto
+source-code: https://github.com/nazzal12/ver-fubtol-libre-pckgs
+
+apps:
+  futbol-libre-hoy:
+    command: bin/futbol-libre-hoy
+    plugs: [network]
+
+parts:
+  futbol-libre-hoy:
+    plugin: npm
+    source: ../js
+    npm-node-version: '22'

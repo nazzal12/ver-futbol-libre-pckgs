@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+$autoloadCandidates = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../../../autoload.php',
+];
+foreach ($autoloadCandidates as $a) {
+    if (is_file($a)) {
+        require $a;
+        break;
+    }
+}
+if (!class_exists(FutbolLibreHoy\Calendar::class)) {
+    require __DIR__ . '/../src/Calendar.php';
+}
+
+use FutbolLibreHoy\Calendar;
+
+$filter = 'all';
+$date = null;
+$sample = false;
+foreach ($argv as $i => $arg) {
+    if ($i === 0) continue;
+    if ($arg === '--live') $filter = 'live';
+    if ($arg === '--upcoming') $filter = 'upcoming';
+    if ($arg === '--finished') $filter = 'finished';
+    if ($arg === '--sample') $sample = true;
+    if ($arg === '--date') $date = $argv[$i + 1] ?? null;
+}
+
+if ($sample) {
+    $path = __DIR__ . '/../../data/sample-calendar.json';
+    $cal = Calendar::parse(file_get_contents($path) ?: '{}');
+} else {
+    $cal = Calendar::fetch($date, $filter);
+}
+
+echo "Futbol Libre Hoy — {$cal['date']} (" . count($cal['matches']) . ")\n";
+echo $cal['homepage'] . "\n\n";
+foreach ($cal['matches'] as $m) {
+    if ($filter === 'live' && ($m['status'] ?? '') !== 'live') continue;
+    echo '- ' . Calendar::formatLine($m) . "\n  {$m['url']}\n";
+}
+echo "\nMás en Futbol Libre: " . Calendar::DEFAULT_BASE_URL . "\n";

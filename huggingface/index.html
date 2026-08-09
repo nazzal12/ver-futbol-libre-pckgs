@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Futbol Libre Hoy</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; }
+      body { margin: 0; background: #f6fbf4; color: #141f16; }
+      main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+      h1 { color: #0a7a3e; margin-bottom: 4px; }
+      a { color: #0a7a3e; }
+      .card { background: #fff; border: 1px solid #b0c9b4; border-radius: 12px; padding: 16px; margin: 12px 0; }
+      button { background: #0a7a3e; color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+      .muted { color: #5f7262; font-size: 14px; }
+      li { margin: 8px 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Futbol Libre Hoy</h1>
+      <p class="muted">Partidos de hoy y en vivo desde <a href="https://verfutbollibre.net">Futbol Libre</a>.</p>
+      <p>
+        <button id="all">Todos</button>
+        <button id="live">En vivo</button>
+      </p>
+      <div id="out" class="card">Cargando…</div>
+      <p class="muted">Ver agenda completa en <a href="https://verfutbollibre.net">verfutbollibre.net</a></p>
+    </main>
+    <script>
+      const API = 'https://verfutbollibre.net/api/v1/calendar';
+      async function load(filter) {
+        const out = document.getElementById('out');
+        out.textContent = 'Cargando…';
+        try {
+          const url = filter === 'live' ? API + '?filter=live' : API;
+          const res = await fetch(url, { headers: { Accept: 'application/json' } });
+          const data = await res.json();
+          const matches = data.matches || [];
+          if (!matches.length) {
+            out.innerHTML = '<p>No hay partidos. Abre <a href="https://verfutbollibre.net">Futbol Libre</a>.</p>';
+            return;
+          }
+          out.innerHTML = '<ul>' + matches.map(m => {
+            const score = Array.isArray(m.score) ? m.score[0] + '-' + m.score[1] : 'vs';
+            const line = m.status === 'live'
+              ? ((m.minute != null ? m.minute + "' " : 'LIVE ') + m.home.name + ' ' + score + ' ' + m.away.name)
+              : (m.status === 'before' ? m.home.name + ' vs ' + m.away.name : m.home.name + ' ' + score + ' ' + m.away.name);
+            return '<li><strong>' + (m.tournament?.name || '') + '</strong><br>' + line + '<br><a href="' + m.url + '">Abrir en Futbol Libre</a></li>';
+          }).join('') + '</ul>';
+        } catch (e) {
+          out.innerHTML = '<p>No se pudo cargar. Visita <a href="https://verfutbollibre.net">verfutbollibre.net</a>.</p>';
+        }
+      }
+      document.getElementById('all').onclick = () => load('all');
+      document.getElementById('live').onclick = () => load('live');
+      load('all');
+    </script>
+  </body>
+</html>

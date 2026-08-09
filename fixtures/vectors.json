@@ -1,0 +1,49 @@
+{
+  "generatedBy": "futbol-libre-hoy/js",
+  "formatLines": [
+    {
+      "id": 1001,
+      "score": "2-1",
+      "line": "74' Rojo FC 2-1 Azul FC",
+      "live": true
+    },
+    {
+      "id": 1002,
+      "score": "vs",
+      "line": "Norte United vs Sur City",
+      "live": false
+    },
+    {
+      "id": 1003,
+      "score": "0-0",
+      "line": "Este SC 0-0 Oeste SC",
+      "live": false
+    }
+  ],
+  "filters": {
+    "live": [
+      1001
+    ],
+    "upcoming": [
+      1002
+    ],
+    "finished": [
+      1003
+    ]
+  },
+  "groups": [
+    {
+      "slug": "copa-demo",
+      "ids": [
+        1001,
+        1002
+      ]
+    },
+    {
+      "slug": "liga-ejemplo",
+      "ids": [
+        1003
+      ]
+    }
+  ]
+}

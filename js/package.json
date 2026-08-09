@@ -1,0 +1,48 @@
+{
+  "name": "futbol-libre-hoy",
+  "version": "1.0.0",
+  "description": "Futbol Libre Hoy — list today's football fixtures and live scores from Futbol Libre (verfutbollibre.net).",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "futbol-libre-hoy": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "LICENSE",
+    "DISCLAIMER.md",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "futbol-libre",
+    "futbol libre en vivo",
+    "futbol en vivo hoy",
+    "ver futbol libre",
+    "football",
+    "soccer",
+    "scores",
+    "matchday"
+  ],
+  "author": "NBK Devs",
+  "license": "MIT",
+  "homepage": "https://verfutbollibre.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nazzal12/ver-fubtol-libre-pckgs.git",
+    "directory": "js"
+  },
+  "bugs": {
+    "url": "https://github.com/nazzal12/ver-fubtol-libre-pckgs/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

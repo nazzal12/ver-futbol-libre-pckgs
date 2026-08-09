@@ -1,0 +1,42 @@
+{
+  "source": "Futbol Libre",
+  "homepage": "https://verfutbollibre.net",
+  "date": "2026-08-09",
+  "filter": "all",
+  "count": 3,
+  "matches": [
+    {
+      "id": 1001,
+      "status": "live",
+      "kickoff_at": "2026-08-09T15:00:00.000Z",
+      "home": { "id": 1, "name": "Rojo FC", "slug": "rojo-fc" },
+      "away": { "id": 2, "name": "Azul FC", "slug": "azul-fc" },
+      "score": [2, 1],
+      "minute": 74,
+      "tournament": { "id": 10, "name": "Copa Demo", "slug": "copa-demo" },
+      "url": "https://verfutbollibre.net/partido/rojo-fc-vs-azul-fc-1001"
+    },
+    {
+      "id": 1002,
+      "status": "before",
+      "kickoff_at": "2026-08-09T20:00:00.000Z",
+      "home": { "id": 3, "name": "Norte United", "slug": "norte-united" },
+      "away": { "id": 4, "name": "Sur City", "slug": "sur-city" },
+      "score": null,
+      "minute": null,
+      "tournament": { "id": 10, "name": "Copa Demo", "slug": "copa-demo" },
+      "url": "https://verfutbollibre.net/partido/norte-united-vs-sur-city-1002"
+    },
+    {
+      "id": 1003,
+      "status": "after",
+      "kickoff_at": "2026-08-09T12:00:00.000Z",
+      "home": { "id": 5, "name": "Este SC", "slug": "este-sc" },
+      "away": { "id": 6, "name": "Oeste SC", "slug": "oeste-sc" },
+      "score": [0, 0],
+      "minute": null,
+      "tournament": { "id": 20, "name": "Liga Ejemplo", "slug": "liga-ejemplo" },
+      "url": "https://verfutbollibre.net/partido/este-sc-vs-oeste-sc-1003"
+    }
+  ]
+}
