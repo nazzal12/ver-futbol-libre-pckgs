@@ -38,7 +38,7 @@ if ($sample) {
     $cal = Calendar::fetch($date, $filter);
 }
 
-echo "Futbol Libre Hoy — {$cal['date']} (" . count($cal['matches']) . ")\n";
+echo "Futbol Libre Hoy - {$cal['date']} (" . count($cal['matches']) . ")\n";
 echo $cal['homepage'] . "\n\n";
 foreach ($cal['matches'] as $m) {
     if ($filter === 'live' && ($m['status'] ?? '') !== 'live') continue;

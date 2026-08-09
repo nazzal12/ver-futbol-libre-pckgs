@@ -12,7 +12,7 @@ Full site: https://verfutbollibre.net
 | Amazon Appstore | Operator listing (website field → site) |
 | Chrome / Firefox / Edge extensions | Operator listings (homepage → site) |
 
-## Developer packages — Futbol Libre Hoy
+## Developer packages - Futbol Libre Hoy
 
 Formatting helpers + online calendar client for  
 `https://verfutbollibre.net/api/v1/calendar`.

@@ -1,4 +1,4 @@
-# Arcade.dev — Futbol Libre Hoy
+# Arcade.dev - Futbol Libre Hoy
 
 Wrap the published `futbol-libre-hoy` Python package as an Arcade tool:
 

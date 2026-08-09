@@ -1,4 +1,4 @@
-# Futbol Libre Hoy — SPEC
+# Futbol Libre Hoy - SPEC
 
 Portable client for the **Futbol Libre** public matchday API.
 

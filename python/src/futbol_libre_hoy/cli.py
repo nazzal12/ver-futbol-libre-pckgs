@@ -16,7 +16,7 @@ from . import (
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description="Futbol Libre Hoy — partidos de hoy y en vivo")
+    p = argparse.ArgumentParser(description="Futbol Libre Hoy - partidos de hoy y en vivo")
     g = p.add_mutually_exclusive_group()
     g.add_argument("--live", action="store_true")
     g.add_argument("--upcoming", action="store_true")
@@ -58,7 +58,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
 
-    print(f"Futbol Libre Hoy — {calendar.date or 'hoy'} ({len(matches)})")
+    print(f"Futbol Libre Hoy - {calendar.date or 'hoy'} ({len(matches)})")
     print(f"{calendar.homepage or DEFAULT_BASE_URL}\n")
     if not matches:
         print("No hay partidos para este filtro.")

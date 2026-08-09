@@ -1,9 +1,9 @@
-# Publishing — Futbol Libre Hoy
+# Publishing - Futbol Libre Hoy
 
 Public repo root = this `packages/` tree.  
 Homepage / backlink target: **https://verfutbollibre.net**
 
-Anchor style: see [ANCHORS.md](./ANCHORS.md) — one keyword **or** naked URL per link, never a keyword pile.
+Anchor style: see [ANCHORS.md](./ANCHORS.md) - one keyword **or** naked URL per link, never a keyword pile.
 
 ## Environment
 

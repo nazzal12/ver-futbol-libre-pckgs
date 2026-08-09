@@ -1,4 +1,4 @@
-# Context7 — Futbol Libre
+# Context7 - Futbol Libre
 
 Register these as libraries in Context7:
 

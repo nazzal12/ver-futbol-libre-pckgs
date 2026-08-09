@@ -1,4 +1,4 @@
-"""Futbol Libre Hoy — public matchday client for https://verfutbollibre.net"""
+"""Futbol Libre Hoy - public matchday client for https://verfutbollibre.net"""
 
 from __future__ import annotations
 

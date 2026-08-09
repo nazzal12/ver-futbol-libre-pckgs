@@ -41,7 +41,7 @@ fn main() {
 
     let matches = filter_matches(&calendar.matches, &filter);
     println!(
-        "Futbol Libre Hoy — {} ({})",
+        "Futbol Libre Hoy - {} ({})",
         if calendar.date.is_empty() {
             "hoy"
         } else {

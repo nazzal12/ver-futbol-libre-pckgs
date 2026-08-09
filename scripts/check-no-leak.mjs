@@ -5,7 +5,7 @@ import { dirname } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Forbidden patterns — private backends, secrets, unrelated hosts. */
+/** Forbidden patterns - private backends, secrets, unrelated hosts. */
 const FORBIDDEN = [
   /football-api\.nazzalkausar12\.workers\.dev/i,
   /futbol-libre-api\.nazzalkausar12\.workers\.dev/i,

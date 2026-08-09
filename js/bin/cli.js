@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 function usage() {
-  console.log(`Futbol Libre Hoy — partidos de hoy y en vivo
+  console.log(`Futbol Libre Hoy - partidos de hoy y en vivo
 
 Usage:
   futbol-libre-hoy [--live|--upcoming|--finished] [--date YYYY-MM-DD] [--json] [--sample]
@@ -63,7 +63,7 @@ async function main() {
     return;
   }
 
-  console.log(`Futbol Libre Hoy — ${calendar.date || 'hoy'} (${matches.length})`);
+  console.log(`Futbol Libre Hoy - ${calendar.date || 'hoy'} (${matches.length})`);
   console.log(`${calendar.homepage || DEFAULT_BASE_URL}\n`);
 
   if (!matches.length) {
