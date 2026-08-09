@@ -5,9 +5,9 @@ Containerized CLI that lists today's football fixtures and live scores from the 
 ## Run
 
 ```bash
-docker run --rm nazzal12/futbol-libre-hoy            # today's fixtures
-docker run --rm nazzal12/futbol-libre-hoy --live     # only live matches
-docker run --rm nazzal12/futbol-libre-hoy --json     # raw JSON output
+docker run --rm iamnazzal/futbol-libre-hoy            # today's fixtures
+docker run --rm iamnazzal/futbol-libre-hoy --live     # only live matches
+docker run --rm iamnazzal/futbol-libre-hoy --json     # raw JSON output
 ```
 
 ## Build locally
@@ -15,8 +15,8 @@ docker run --rm nazzal12/futbol-libre-hoy --json     # raw JSON output
 From the repository root:
 
 ```bash
-docker build -f docker/Dockerfile -t nazzal12/futbol-libre-hoy .
-docker run --rm nazzal12/futbol-libre-hoy --live
+docker build -f docker/Dockerfile -t iamnazzal/futbol-libre-hoy .
+docker run --rm iamnazzal/futbol-libre-hoy --live
 ```
 
 ## Data source

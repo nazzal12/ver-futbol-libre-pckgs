@@ -25,7 +25,7 @@ Formatting helpers + online calendar client for
 | RubyGems | `ruby/` | `futbol-libre-hoy` |
 | Packagist | `php/` (+ root `composer.json`) | `nazzal12/futbol-libre-hoy` |
 | pub.dev | `dart/` | `futbol_libre_hoy` |
-| Docker Hub | `docker/` | `nazzal12/futbol-libre-hoy` |
+| Docker Hub | `docker/` | `iamnazzal/futbol-libre-hoy` |
 
 ```bash
 npx futbol-libre-hoy --live
