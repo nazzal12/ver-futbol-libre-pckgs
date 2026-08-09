@@ -2,7 +2,7 @@
 name = "futbol-libre-hoy"
 version = "1.0.0"
 edition = "2021"
-description = "Futbol Libre Hoy — today's football fixtures from Futbol Libre"
+description = "Futbol Libre Hoy - today's football fixtures from Futbol Libre"
 license = "MIT"
 repository = "https://github.com/nazzal12/ver-fubtol-libre-pckgs"
 homepage = "https://verfutbollibre.net"
