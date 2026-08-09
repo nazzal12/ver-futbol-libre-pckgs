@@ -4,7 +4,6 @@
 [Futbol Libre](https://verfutbollibre.net).
 
 Use it to list today's fixtures, filter live matches, and open the full match
-page on Futbol Libre for statistics, lineups, and commentary.
+page for statistics, lineups, and commentary.
 
-For the complete experience — marcadores en vivo, clasificaciones, and fichas
-de partido — visit **https://verfutbollibre.net**.
+For the complete experience, visit https://verfutbollibre.net

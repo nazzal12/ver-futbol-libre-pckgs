@@ -2,7 +2,7 @@ name: futbol_libre_hoy
 description: Futbol Libre Hoy — today's football fixtures and live scores from Futbol Libre.
 version: 1.0.0
 homepage: https://verfutbollibre.net
-repository: https://github.com/nazzal12/ver-fubtol-libre-pckgs
+repository: https://github.com/nazzal12/ver-futbol-libre-pckgs
 environment:
   sdk: ">=3.0.0 <4.0.0"
 dev_dependencies:

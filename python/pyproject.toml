@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "futbol-libre-hoy"
 version = "1.0.0"
-description = "Futbol Libre Hoy — today's football fixtures and live scores from Futbol Libre"
+description = "Futbol Libre Hoy - today's football fixtures and live scores from Futbol Libre"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -20,8 +20,8 @@ dependencies = []
 
 [project.urls]
 Homepage = "https://verfutbollibre.net"
-Repository = "https://github.com/nazzal12/ver-fubtol-libre-pckgs"
-Issues = "https://github.com/nazzal12/ver-fubtol-libre-pckgs/issues"
+Repository = "https://github.com/nazzal12/ver-futbol-libre-pckgs"
+Issues = "https://github.com/nazzal12/ver-futbol-libre-pckgs/issues"
 
 [project.scripts]
 futbol-libre-hoy = "futbol_libre_hoy.cli:main"

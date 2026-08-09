@@ -1,6 +1,6 @@
 # Futbol Libre Hoy (Dart)
 
-Fetch today's fixtures from **[Futbol Libre](https://verfutbollibre.net)**.
+Fetch today's fixtures with **[Ver Futbol Libre](https://verfutbollibre.net)** matchday data.
 
 ```dart
 import 'package:futbol_libre_hoy/futbol_libre_hoy.dart';
@@ -11,5 +11,4 @@ for (final m in cal.matches) {
 }
 ```
 
-Homepage: https://verfutbollibre.net  
-Repository: https://github.com/nazzal12/ver-fubtol-libre-pckgs
+Repository: https://github.com/nazzal12/ver-futbol-libre-pckgs

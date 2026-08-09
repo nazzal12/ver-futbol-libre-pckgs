@@ -10,7 +10,7 @@ Portable client for the **Futbol Libre** public matchday API.
 | Package | `futbol-libre-hoy` |
 | Homepage | https://verfutbollibre.net |
 | Default API | `https://verfutbollibre.net/api/v1/calendar` |
-| Repository | https://github.com/nazzal12/ver-fubtol-libre-pckgs |
+| Repository | https://github.com/nazzal12/ver-futbol-libre-pckgs |
 
 ## Endpoint
 

@@ -6,6 +6,6 @@ Register these as libraries in Context7:
    Title: Futbol Libre  
    Homepage: https://verfutbollibre.net
 
-2. **Packages README:** https://github.com/nazzal12/ver-fubtol-libre-pckgs  
+2. **Packages README:** https://github.com/nazzal12/ver-futbol-libre-pckgs  
    Title: Futbol Libre Hoy packages  
    Homepage: https://verfutbollibre.net

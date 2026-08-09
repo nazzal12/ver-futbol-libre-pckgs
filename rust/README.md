@@ -49,7 +49,7 @@ Reads the public calendar feed at `https://verfutbollibre.net/api/v1/calendar`. 
 
 ## Source & docs
 
-Repository: https://github.com/nazzal12/ver-fubtol-libre-pckgs
+Repository: https://github.com/nazzal12/ver-futbol-libre-pckgs
 
 ## License
 

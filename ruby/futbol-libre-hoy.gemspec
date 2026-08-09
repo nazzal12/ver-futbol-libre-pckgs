@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version       = '1.0.0'
   spec.authors       = ['NBK Devs']
   spec.email         = ['nazzal5448@gmail.com']
-  spec.summary       = 'Futbol Libre Hoy — fixtures and live scores from Futbol Libre'
+  spec.summary       = 'Futbol Libre Hoy - fixtures and live scores from Futbol Libre'
   spec.description   = 'CLI and library to list today\'s football matches from https://verfutbollibre.net'
   spec.homepage      = 'https://verfutbollibre.net'
   spec.license       = 'MIT'
@@ -15,6 +15,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 3.0'
   spec.metadata['homepage_uri'] = 'https://verfutbollibre.net'
-  spec.metadata['source_code_uri'] = 'https://github.com/nazzal12/ver-fubtol-libre-pckgs'
+  spec.metadata['source_code_uri'] = 'https://github.com/nazzal12/ver-futbol-libre-pckgs'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

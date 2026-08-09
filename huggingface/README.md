@@ -10,8 +10,8 @@ license: mit
 
 # Futbol Libre Hoy
 
-Static demo UI for **[Futbol Libre](https://verfutbollibre.net)** matchday listings.
+Static demo for matchday listings.
 
-Open the Space page or visit the full site for live scores, stats, and lineups:
+Open the Space, or the full site:
 
-**https://verfutbollibre.net**
+https://verfutbollibre.net

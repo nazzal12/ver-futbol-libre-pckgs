@@ -10,7 +10,7 @@ grade: stable
 confinement: strict
 website: https://verfutbollibre.net
 contact: https://verfutbollibre.net/contacto
-source-code: https://github.com/nazzal12/ver-fubtol-libre-pckgs
+source-code: https://github.com/nazzal12/ver-futbol-libre-pckgs
 
 apps:
   futbol-libre-hoy:

@@ -3,6 +3,8 @@
 Public repo root = this `packages/` tree.  
 Homepage / backlink target: **https://verfutbollibre.net**
 
+Anchor style: see [ANCHORS.md](./ANCHORS.md) — one keyword **or** naked URL per link, never a keyword pile.
+
 ## Environment
 
 - **Windows:** npm, Python, Dart, Docker Hub UI steps.
@@ -62,7 +64,7 @@ GEM_HOST_API_KEY=<key> gem push futbol-libre-hoy-1.0.0.gem
 
 ## 5) Packagist
 
-1. Submit https://github.com/nazzal12/ver-fubtol-libre-pckgs  
+1. Submit https://github.com/nazzal12/ver-futbol-libre-pckgs  
 2. Enable GitHub webhook  
 3. `git tag v1.0.0 && git push origin v1.0.0`
 
@@ -143,4 +145,4 @@ Register `https://verfutbollibre.net/llms.txt` with title **Futbol Libre**.
 | HuggingFace | ready | | yes |
 | Smithery | ready | | yes |
 | Context7 | ready | | yes |
-| GitHub | pending push | https://github.com/nazzal12/ver-fubtol-libre-pckgs | yes |
+| GitHub | pending push | https://github.com/nazzal12/ver-futbol-libre-pckgs | yes |

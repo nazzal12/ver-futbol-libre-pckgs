@@ -1,11 +1,11 @@
 {
   "name": "nazzal12/futbol-libre-hoy",
-  "description": "Futbol Libre Hoy — today's football fixtures from Futbol Libre",
+  "description": "Futbol Libre Hoy - today's football fixtures from Futbol Libre",
   "type": "library",
   "license": "MIT",
   "homepage": "https://verfutbollibre.net",
   "support": {
-    "source": "https://github.com/nazzal12/ver-fubtol-libre-pckgs"
+    "source": "https://github.com/nazzal12/ver-futbol-libre-pckgs"
   },
   "authors": [{ "name": "NBK Devs" }],
   "require": {

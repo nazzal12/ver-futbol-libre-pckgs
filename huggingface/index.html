@@ -25,7 +25,7 @@
         <button id="live">En vivo</button>
       </p>
       <div id="out" class="card">Cargando…</div>
-      <p class="muted">Ver agenda completa en <a href="https://verfutbollibre.net">verfutbollibre.net</a></p>
+      <p class="muted">Agenda completa: https://verfutbollibre.net</p>
     </main>
     <script>
       const API = 'https://verfutbollibre.net/api/v1/calendar';
@@ -38,7 +38,7 @@
           const data = await res.json();
           const matches = data.matches || [];
           if (!matches.length) {
-            out.innerHTML = '<p>No hay partidos. Abre <a href="https://verfutbollibre.net">Futbol Libre</a>.</p>';
+            out.innerHTML = '<p>No hay partidos. Ver agenda: <a href="https://verfutbollibre.net">https://verfutbollibre.net</a></p>';
             return;
           }
           out.innerHTML = '<ul>' + matches.map(m => {
@@ -46,10 +46,10 @@
             const line = m.status === 'live'
               ? ((m.minute != null ? m.minute + "' " : 'LIVE ') + m.home.name + ' ' + score + ' ' + m.away.name)
               : (m.status === 'before' ? m.home.name + ' vs ' + m.away.name : m.home.name + ' ' + score + ' ' + m.away.name);
-            return '<li><strong>' + (m.tournament?.name || '') + '</strong><br>' + line + '<br><a href="' + m.url + '">Abrir en Futbol Libre</a></li>';
+            return '<li><strong>' + (m.tournament?.name || '') + '</strong><br>' + line + '<br><a href="' + m.url + '">Abrir ficha</a></li>';
           }).join('') + '</ul>';
         } catch (e) {
-          out.innerHTML = '<p>No se pudo cargar. Visita <a href="https://verfutbollibre.net">verfutbollibre.net</a>.</p>';
+          out.innerHTML = '<p>No se pudo cargar. https://verfutbollibre.net</p>';
         }
       }
       document.getElementById('all').onclick = () => load('all');
