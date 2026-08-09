@@ -1,0 +1,65 @@
+name: snap
+
+on:
+  push:
+    tags:
+      - 'snap-v*'
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Snap Store channel to release to'
+        required: true
+        default: 'edge'
+        type: choice
+        options:
+          - edge
+          - beta
+          - candidate
+          - stable
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build snap
+        id: build
+        uses: snapcore/action-build@v1
+        with:
+          path: .
+
+      - name: Upload snap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: snap
+          path: ${{ steps.build.outputs.snap }}
+
+      - name: Decide whether to publish
+        id: decide
+        run: |
+          if [ -n "${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::SNAPCRAFT_STORE_CREDENTIALS secret is missing; snap built but not published."
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "release=${{ inputs.release }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=stable" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to Snap Store
+        if: steps.decide.outputs.publish == 'true'
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: ${{ steps.decide.outputs.release }}

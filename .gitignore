@@ -18,5 +18,9 @@ bin/Release/
 obj/
 .DS_Store
 *.gem
+*.snap
+snap/parts/
+snap/stage/
+snap/prime/
 vendor/
 composer.lock

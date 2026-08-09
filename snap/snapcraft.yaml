@@ -11,6 +11,8 @@ confinement: strict
 website: https://verfutbollibre.net
 contact: https://verfutbollibre.net/contacto
 source-code: https://github.com/nazzal12/ver-futbol-libre-pckgs
+license: MIT
+issues: https://github.com/nazzal12/ver-futbol-libre-pckgs/issues
 
 apps:
   futbol-libre-hoy:
@@ -20,5 +22,6 @@ apps:
 parts:
   futbol-libre-hoy:
     plugin: npm
-    source: ../js
+    source: js
+    npm-include-node: true
     npm-node-version: '22'

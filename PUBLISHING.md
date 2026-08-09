@@ -81,34 +81,41 @@ dart pub publish
 From packages root (needs Docker Desktop / daemon):
 
 ```bash
-docker build -f docker/Dockerfile -t nazzal12/futbol-libre-hoy .
+docker build -f docker/Dockerfile -t iamnazzal/futbol-libre-hoy .
 docker login
-docker push nazzal12/futbol-libre-hoy
+docker push iamnazzal/futbol-libre-hoy:1.0.0
+docker push iamnazzal/futbol-libre-hoy:latest
 ```
 
 Set Docker Hub description + website to https://verfutbollibre.net
 
-## 8) Snap Store (WSL + snapcraft)
+## 8) Snap Store (GitHub Actions)
 
-One-time store login/register (can use snapcraft Docker image if snapd is awkward):
+Preferred path: `.github/workflows/snap.yml` builds with `snapcore/action-build` and publishes with `snapcore/action-publish`.
+
+One-time setup in WSL:
 
 ```bash
+wsl -d Ubuntu
+mkdir -p /tmp/xdg-run
+export XDG_RUNTIME_DIR=/tmp/xdg-run
 snapcraft login
 snapcraft register futbol-libre-hoy
-snapcraft export-login --snaps futbol-libre-hoy \
-  --acls package_access,package_push,package_release,package_update creds.txt
+snapcraft export-login \
+  --snaps=futbol-libre-hoy \
+  --acls package_access,package_push,package_release,package_update \
+  /tmp/snap-creds.txt
 ```
 
-Prefer **CI publish** with secret `SNAPCRAFT_STORE_CREDENTIALS` (contents of `creds.txt`).  
-Do **not** commit `creds.txt`.
+Add GitHub Actions secret **`SNAPCRAFT_STORE_CREDENTIALS`** = full contents of `/tmp/snap-creds.txt`.  
+Do **not** commit that file.
 
-Local build (if LXD/snapd ready):
+Publish:
 
-```bash
-cd snap
-snapcraft
-snapcraft upload --release=stable *.snap
-```
+- Actions → **snap** → **Run workflow** (choose channel), or
+- `git tag snap-v1.0.0 && git push origin snap-v1.0.0` (channel: stable)
+
+`snapcraft.yaml` lives at `snap/snapcraft.yaml` with `source: js` (repo root = project root).
 
 ## 9) CocoaPods (needs macOS for `pod trunk push`)
 
