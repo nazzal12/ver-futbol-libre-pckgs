@@ -15,12 +15,13 @@ Pod::Spec.new do |s|
   }
   s.social_media_url = 'https://verfutbollibre.net'
 
-  s.ios.deployment_target  = '13.0'
-  s.osx.deployment_target  = '10.15'
+  s.ios.deployment_target = '13.0'
+  s.osx.deployment_target = '10.15'
   s.tvos.deployment_target = '13.0'
   s.watchos.deployment_target = '6.0'
 
-  s.swift_versions = ['5.7', '5.8', '5.9', '5.10']
-  s.source_files = 'Sources/FutbolLibreHoy/**/*.swift'
+  s.swift_version = '5.7'
+  # Paths are relative to the git checkout root (monorepo), not this file.
+  s.source_files = 'cocoapods/Sources/FutbolLibreHoy/**/*.swift'
   s.frameworks = 'Foundation'
 end

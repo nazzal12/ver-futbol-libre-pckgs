@@ -12,9 +12,6 @@ permissions:
 jobs:
   lint-and-publish:
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: cocoapods
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,6 +29,7 @@ jobs:
       - name: Install CocoaPods
         run: gem install cocoapods --no-document
 
+      # Validate against the local checkout (paths relative to repo root).
       - name: Lint podspec
         run: pod lib lint FutbolLibreHoy.podspec --allow-warnings --verbose
 
@@ -45,6 +43,7 @@ jobs:
           } > ~/.netrc
           chmod 600 ~/.netrc
 
+      # trunk push re-clones the git tag; source_files must match repo-root paths.
       - name: Push to CocoaPods trunk
         if: steps.decide.outputs.publish == 'true'
         run: pod trunk push FutbolLibreHoy.podspec --allow-warnings --verbose

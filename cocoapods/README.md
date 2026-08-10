@@ -27,7 +27,7 @@ FutbolLibreHoy.fetchCalendar(filter: "live") { result in
 
 | API | Description |
 | --- | --- |
-| `parseCalendar(_:)` | Parse a JSON string or dictionary |
+| `parseCalendar(_:)` → `MatchdayCalendar` | Parse a JSON string or dictionary |
 | `fetchCalendar(date:filter:baseURL:completion:)` | Fetch fixtures for a day |
 | `filterMatches(_:filter:)` | Filter by `live`, `upcoming`, or `finished` |
 | `groupByTournament(_:)` | Group matches by competition |
@@ -39,7 +39,8 @@ FutbolLibreHoy.fetchCalendar(filter: "live") { result in
 
 ## Publish
 
-Use `.github/workflows/cocoapods.yml` (macOS). Requires secret `COCOAPODS_TRUNK_TOKEN`. Tag: `cocoapods-1.0.0`.
+Podspec lives at repo root: `FutbolLibreHoy.podspec` (source files under `cocoapods/Sources/...`).  
+Workflow: `.github/workflows/cocoapods.yml`. Secret: `COCOAPODS_TRUNK_TOKEN`. Tag: `cocoapods-1.0.0`.
 
 ## Source
 

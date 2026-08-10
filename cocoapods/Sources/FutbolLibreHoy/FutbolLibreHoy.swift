@@ -8,7 +8,7 @@ public enum FutbolLibreHoy {
     public static let defaultBaseURL = "https://verfutbollibre.net"
     public static let calendarPath = "/api/v1/calendar"
 
-    public struct Team: Equatable, Sendable {
+    public struct Team: Equatable {
         public let id: Int
         public let name: String
         public let slug: String
@@ -20,13 +20,14 @@ public enum FutbolLibreHoy {
         }
     }
 
-    public struct Match: Equatable, Sendable {
+    public struct Match: Equatable {
         public let id: Int
         public let status: String
         public let kickoffAt: String
         public let home: Team
         public let away: Team
-        public let score: (Int, Int)?
+        public let homeScore: Int?
+        public let awayScore: Int?
         public let minute: Int?
         public let tournament: Team
         public let url: String
@@ -37,7 +38,8 @@ public enum FutbolLibreHoy {
             kickoffAt: String,
             home: Team,
             away: Team,
-            score: (Int, Int)?,
+            homeScore: Int?,
+            awayScore: Int?,
             minute: Int?,
             tournament: Team,
             url: String
@@ -47,27 +49,16 @@ public enum FutbolLibreHoy {
             self.kickoffAt = kickoffAt
             self.home = home
             self.away = away
-            self.score = score
+            self.homeScore = homeScore
+            self.awayScore = awayScore
             self.minute = minute
             self.tournament = tournament
             self.url = url
         }
-
-        public static func == (lhs: Match, rhs: Match) -> Bool {
-            lhs.id == rhs.id
-                && lhs.status == rhs.status
-                && lhs.kickoffAt == rhs.kickoffAt
-                && lhs.home == rhs.home
-                && lhs.away == rhs.away
-                && lhs.score?.0 == rhs.score?.0
-                && lhs.score?.1 == rhs.score?.1
-                && lhs.minute == rhs.minute
-                && lhs.tournament == rhs.tournament
-                && lhs.url == rhs.url
-        }
     }
 
-    public struct Calendar: Equatable, Sendable {
+    /// Public matchday feed payload (not Foundation.Calendar).
+    public struct MatchdayCalendar: Equatable {
         public let source: String
         public let homepage: String
         public let date: String
@@ -92,7 +83,7 @@ public enum FutbolLibreHoy {
         }
     }
 
-    public struct TournamentGroup: Equatable, Sendable {
+    public struct TournamentGroup: Equatable {
         public let tournament: Team
         public let matches: [Match]
 
@@ -102,14 +93,16 @@ public enum FutbolLibreHoy {
         }
     }
 
-    public enum Error: Swift.Error, LocalizedError {
+    public enum CalendarError: Swift.Error, LocalizedError {
         case invalidJSON
         case httpStatus(Int)
 
         public var errorDescription: String? {
             switch self {
-            case .invalidJSON: return "Invalid Futbol Libre calendar JSON"
-            case .httpStatus(let code): return "Futbol Libre calendar HTTP \(code)"
+            case .invalidJSON:
+                return "Invalid Futbol Libre calendar JSON"
+            case .httpStatus(let code):
+                return "Futbol Libre calendar HTTP \(code)"
             }
         }
     }
@@ -138,41 +131,46 @@ public enum FutbolLibreHoy {
 
     public static func normalizeMatch(_ raw: Any) -> Match {
         let o = raw as? [String: Any] ?? [:]
-        var score: (Int, Int)?
-        if let arr = o["score"] as? [Any], arr.count >= 2,
-           let h = intValue(arr[0]), let a = intValue(arr[1]) {
-            score = (h, a)
+        var homeScore: Int?
+        var awayScore: Int?
+        if let arr = o["score"] as? [Any], arr.count >= 2 {
+            homeScore = intValue(arr[0])
+            awayScore = intValue(arr[1])
         }
+        let minuteAbsent = o["minute"] == nil || o["minute"] is NSNull
         return Match(
             id: intValue(o["id"]) ?? 0,
             status: stringValue(o["status"]) ?? "",
             kickoffAt: stringValue(o["kickoff_at"]) ?? "",
             home: asTeam(o["home"], fallback: "Home"),
             away: asTeam(o["away"], fallback: "Away"),
-            score: score,
-            minute: o["minute"] == nil || o["minute"] is NSNull ? nil : intValue(o["minute"]),
+            homeScore: homeScore,
+            awayScore: awayScore,
+            minute: minuteAbsent ? nil : intValue(o["minute"]),
             tournament: asTeam(o["tournament"], fallback: "Tournament"),
             url: stringValue(o["url"]) ?? defaultBaseURL
         )
     }
 
-    public static func parseCalendar(_ input: Any) throws -> Calendar {
+    public static func parseCalendar(_ input: Any) throws -> MatchdayCalendar {
         let data: [String: Any]
         if let s = input as? String {
             guard let bytes = s.data(using: .utf8),
                   let obj = try JSONSerialization.jsonObject(with: bytes) as? [String: Any]
-            else { throw Error.invalidJSON }
+            else {
+                throw CalendarError.invalidJSON
+            }
             data = obj
         } else if let obj = input as? [String: Any] {
             data = obj
         } else {
-            throw Error.invalidJSON
+            throw CalendarError.invalidJSON
         }
 
         let list = data["matches"] as? [Any] ?? []
-        let matches = list.map(normalizeMatch)
+        let matches = list.map { normalizeMatch($0) }
         let count = intValue(data["count"]) ?? matches.count
-        return Calendar(
+        return MatchdayCalendar(
             source: stringValue(data["source"]) ?? "Futbol Libre",
             homepage: stringValue(data["homepage"]) ?? defaultBaseURL,
             date: stringValue(data["date"]) ?? "",
@@ -183,14 +181,14 @@ public enum FutbolLibreHoy {
     }
 
     public static func formatScore(_ match: Match) -> String {
-        if let score = match.score {
-            return "\(score.0)-\(score.1)"
+        if let homeScore = match.homeScore, let awayScore = match.awayScore {
+            return "\(homeScore)-\(awayScore)"
         }
         return "vs"
     }
 
     public static func isLive(_ match: Match) -> Bool {
-        match.status == "live"
+        return match.status == "live"
     }
 
     public static func formatLine(_ match: Match) -> String {
@@ -234,8 +232,10 @@ public enum FutbolLibreHoy {
             }
             buckets[id, default: []].append(m)
         }
-        return order.compactMap { id in
-            guard let tournament = tournaments[id], let list = buckets[id] else { return nil }
+        return order.compactMap { id -> TournamentGroup? in
+            guard let tournament = tournaments[id], let list = buckets[id] else {
+                return nil
+            }
             return TournamentGroup(tournament: tournament, matches: list)
         }
     }
@@ -244,21 +244,25 @@ public enum FutbolLibreHoy {
         date: String? = nil,
         filter: String? = nil,
         baseURL: String = defaultBaseURL,
-        completion: @escaping (Result<Calendar, Swift.Error>) -> Void
+        completion: @escaping (Result<MatchdayCalendar, Swift.Error>) -> Void
     ) {
         let trimmed = baseURL.hasSuffix("/") ? String(baseURL.dropLast()) : baseURL
         guard var components = URLComponents(string: trimmed + calendarPath) else {
-            completion(.failure(Error.invalidJSON))
+            completion(.failure(CalendarError.invalidJSON))
             return
         }
         var items: [URLQueryItem] = []
-        if let date, !date.isEmpty { items.append(URLQueryItem(name: "date", value: date)) }
-        if let filter, !filter.isEmpty, filter != "all" {
-            items.append(URLQueryItem(name: "filter", value: filter))
+        if let dateValue = date, !dateValue.isEmpty {
+            items.append(URLQueryItem(name: "date", value: dateValue))
         }
-        if !items.isEmpty { components.queryItems = items }
+        if let filterValue = filter, !filterValue.isEmpty, filterValue != "all" {
+            items.append(URLQueryItem(name: "filter", value: filterValue))
+        }
+        if !items.isEmpty {
+            components.queryItems = items
+        }
         guard let url = components.url else {
-            completion(.failure(Error.invalidJSON))
+            completion(.failure(CalendarError.invalidJSON))
             return
         }
 
@@ -267,13 +271,13 @@ public enum FutbolLibreHoy {
         request.setValue("es-ES", forHTTPHeaderField: "Accept-Language")
 
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error {
+            if let error = error {
                 completion(.failure(error))
                 return
             }
             let code = (response as? HTTPURLResponse)?.statusCode ?? 0
-            guard (200..<300).contains(code), let data else {
-                completion(.failure(Error.httpStatus(code)))
+            guard (200..<300).contains(code), let data = data else {
+                completion(.failure(CalendarError.httpStatus(code)))
                 return
             }
             do {

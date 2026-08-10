@@ -119,21 +119,28 @@ Publish:
 
 ## 9) CocoaPods (GitHub Actions / macOS)
 
-Package: `cocoapods/FutbolLibreHoy.podspec`  
-Workflow: `.github/workflows/cocoapods.yml` (macOS runner; `pod lib lint` + `pod trunk push`)
+Package: `FutbolLibreHoy.podspec` (repo root)  
+Sources: `cocoapods/Sources/FutbolLibreHoy/**/*.swift`  
+Workflow: `.github/workflows/cocoapods.yml` (macOS; `pod lib lint` + `pod trunk push`)
 
-One-time trunk registration (needs a Mac or any machine with CocoaPods + network):
+One-time trunk registration:
 
 ```bash
 pod trunk register nazzal5448@gmail.com "NBK Devs" --description="Futbol Libre Hoy"
 ```
 
-Confirm the email link, then copy the trunk token from `~/.netrc` (`machine trunk.cocoapods.org` → `password`) into GitHub secret **`COCOAPODS_TRUNK_TOKEN`**.
+Confirm the email, then put the trunk token from `~/.netrc` into GitHub secret **`COCOAPODS_TRUNK_TOKEN`**.
 
-Publish:
+Publish (retag after fixes if `cocoapods-1.0.0` already exists):
 
-- Actions → **cocoapods** → **Run workflow**, or
-- `git tag cocoapods-1.0.0 && git push origin cocoapods-1.0.0`
+```bash
+git tag -d cocoapods-1.0.0
+git push origin :refs/tags/cocoapods-1.0.0
+git tag cocoapods-1.0.0
+git push origin cocoapods-1.0.0
+```
+
+Or: Actions → **cocoapods** → **Run workflow**.
 
 Do **not** use a plain `v*` tag here (that also triggers Snap).
 
