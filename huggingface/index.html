@@ -5,55 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Futbol Libre Hoy</title>
     <style>
-      :root { color-scheme: light; font-family: system-ui, sans-serif; }
-      body { margin: 0; background: #f6fbf4; color: #141f16; }
-      main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
-      h1 { color: #0a7a3e; margin-bottom: 4px; }
-      a { color: #0a7a3e; }
-      .card { background: #fff; border: 1px solid #b0c9b4; border-radius: 12px; padding: 16px; margin: 12px 0; }
-      button { background: #0a7a3e; color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
-      .muted { color: #5f7262; font-size: 14px; }
-      li { margin: 8px 0; }
+      :root {
+        --bg: #eef6f0;
+        --ink: #132018;
+        --muted: #5a6f60;
+        --green: #0a7a3e;
+        --line: #b7cbb9;
+        --card: #ffffff;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse 80% 50% at 10% -10%, #cfe8d5 0%, transparent 55%),
+          linear-gradient(180deg, #f7fbf8 0%, var(--bg) 100%);
+      }
+      main { max-width: 720px; margin: 0 auto; padding: 28px 16px 56px; }
+      h1 {
+        margin: 0 0 6px;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        letter-spacing: -0.03em;
+        color: var(--green);
+      }
+      a { color: var(--green); }
+      .lead { margin: 0 0 18px; color: var(--muted); line-height: 1.5; }
+      .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+      button {
+        background: var(--green);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        padding: 9px 14px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      button.ghost {
+        background: transparent;
+        color: var(--green);
+        border: 1px solid var(--line);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        min-height: 120px;
+      }
+      ul { list-style: none; margin: 0; padding: 0; }
+      li {
+        padding: 12px 0;
+        border-bottom: 1px solid #e5eee7;
+      }
+      li:last-child { border-bottom: 0; }
+      .comp {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .muted { color: var(--muted); font-size: 14px; }
+      footer { margin-top: 18px; }
     </style>
   </head>
   <body>
     <main>
       <h1>Futbol Libre Hoy</h1>
-      <p class="muted">Partidos de hoy y en vivo desde <a href="https://verfutbollibre.net">Futbol Libre</a>.</p>
-      <p>
-        <button id="all">Todos</button>
-        <button id="live">En vivo</button>
+      <p class="lead">
+        Partidos de hoy y en vivo. Agenda completa en
+        <a href="https://verfutbollibre.net">https://verfutbollibre.net</a>
       </p>
-      <div id="out" class="card">Cargando…</div>
-      <p class="muted">Agenda completa: https://verfutbollibre.net</p>
+      <div class="actions">
+        <button type="button" id="all">Todos</button>
+        <button type="button" id="live" class="ghost">En vivo</button>
+      </div>
+      <div id="out" class="card" aria-live="polite">Cargando…</div>
+      <footer class="muted">
+        Feed publico: <code>/api/v1/calendar</code>
+      </footer>
     </main>
     <script>
       const API = 'https://verfutbollibre.net/api/v1/calendar';
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function formatLine(m) {
+        const score = Array.isArray(m.score) ? m.score[0] + '-' + m.score[1] : 'vs';
+        if (m.status === 'live') {
+          const prefix = m.minute != null ? m.minute + "' " : 'LIVE ';
+          return prefix + m.home.name + ' ' + score + ' ' + m.away.name;
+        }
+        if (m.status === 'before') return m.home.name + ' vs ' + m.away.name;
+        return m.home.name + ' ' + score + ' ' + m.away.name;
+      }
+
       async function load(filter) {
         const out = document.getElementById('out');
+        document.getElementById('all').classList.toggle('ghost', filter === 'live');
+        document.getElementById('live').classList.toggle('ghost', filter !== 'live');
         out.textContent = 'Cargando…';
         try {
           const url = filter === 'live' ? API + '?filter=live' : API;
-          const res = await fetch(url, { headers: { Accept: 'application/json' } });
+          const res = await fetch(url, {
+            headers: { Accept: 'application/json', 'Accept-Language': 'es-ES' },
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
           const matches = data.matches || [];
           if (!matches.length) {
-            out.innerHTML = '<p>No hay partidos. Ver agenda: <a href="https://verfutbollibre.net">https://verfutbollibre.net</a></p>';
+            out.innerHTML =
+              '<p>No hay partidos ahora. Ver agenda: ' +
+              '<a href="https://verfutbollibre.net">https://verfutbollibre.net</a></p>';
             return;
           }
-          out.innerHTML = '<ul>' + matches.map(m => {
-            const score = Array.isArray(m.score) ? m.score[0] + '-' + m.score[1] : 'vs';
-            const line = m.status === 'live'
-              ? ((m.minute != null ? m.minute + "' " : 'LIVE ') + m.home.name + ' ' + score + ' ' + m.away.name)
-              : (m.status === 'before' ? m.home.name + ' vs ' + m.away.name : m.home.name + ' ' + score + ' ' + m.away.name);
-            return '<li><strong>' + (m.tournament?.name || '') + '</strong><br>' + line + '<br><a href="' + m.url + '">Abrir ficha</a></li>';
-          }).join('') + '</ul>';
+          out.innerHTML =
+            '<ul>' +
+            matches
+              .map(function (m) {
+                return (
+                  '<li>' +
+                  '<span class="comp">' + escapeHtml(m.tournament && m.tournament.name ? m.tournament.name : '') + '</span>' +
+                  '<strong>' + escapeHtml(formatLine(m)) + '</strong><br>' +
+                  '<a href="' + escapeHtml(m.url) + '">Abrir ficha</a>' +
+                  '</li>'
+                );
+              })
+              .join('') +
+            '</ul>';
         } catch (e) {
-          out.innerHTML = '<p>No se pudo cargar. https://verfutbollibre.net</p>';
+          out.innerHTML =
+            '<p>No se pudo cargar el feed. Abre ' +
+            '<a href="https://verfutbollibre.net">https://verfutbollibre.net</a></p>';
         }
       }
-      document.getElementById('all').onclick = () => load('all');
-      document.getElementById('live').onclick = () => load('live');
+
+      document.getElementById('all').onclick = function () { load('all'); };
+      document.getElementById('live').onclick = function () { load('live'); };
       load('all');
     </script>
   </body>

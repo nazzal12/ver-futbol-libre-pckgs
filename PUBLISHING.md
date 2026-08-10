@@ -146,7 +146,28 @@ Do **not** use a plain `v*` tag here (that also triggers Snap).
 
 ## 10) Hugging Face Space
 
-Create a **Static** Space; push `huggingface/` contents. Link homepage to the site.
+Contents: `huggingface/` (`README.md` with `sdk: static`, `index.html`).
+
+Create a **Static** Space, then push files into it:
+
+```bash
+pip install -U huggingface_hub
+huggingface-cli login
+```
+
+```bash
+git clone https://huggingface.co/spaces/YOUR_USER/futbol-libre-hoy hf-space
+cd hf-space
+copy ..\packages\huggingface\* .
+git add -A
+git commit -m "Futbol Libre Hoy static space"
+git push
+```
+
+Set Space metadata homepage / about link to https://verfutbollibre.net  
+Expected URL: `https://huggingface.co/spaces/YOUR_USER/futbol-libre-hoy`
+
+Note: `/api/v1/calendar` must send CORS (`Access-Control-Allow-Origin`) for the browser demo to load.
 
 ## 11) Smithery / ClawHub
 
