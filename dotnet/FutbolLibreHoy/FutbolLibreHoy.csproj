@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>FutbolLibreHoy</RootNamespace>
+    <AssemblyName>FutbolLibreHoy</AssemblyName>
+    <PackageId>FutbolLibreHoy</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>NBK Devs</Authors>
+    <Company>NBK Devs</Company>
+    <Description>Futbol Libre Hoy - today's football fixtures and live scores from the public calendar feed.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://verfutbollibre.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nazzal12/ver-futbol-libre-pckgs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>football;soccer;futbol-libre;scores;matchday</PackageTags>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>

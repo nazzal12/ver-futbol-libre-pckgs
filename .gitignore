@@ -14,13 +14,8 @@ creds.txt
 .netrc
 *.netrc
 *.nupkg
-bin/Release/
-obj/
-.DS_Store
-*.gem
-*.snap
-snap/parts/
-snap/stage/
-snap/prime/
+**/nupkgs/
+**/bin/
+**/obj/
 vendor/
 composer.lock

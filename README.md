@@ -28,6 +28,7 @@ Formatting helpers + online calendar client for
 | Docker Hub | `docker/` | `iamnazzal/futbol-libre-hoy` |
 | Snap Store | `snap/` | `futbol-libre-hoy` (CI) |
 | CocoaPods | `cocoapods/` | `FutbolLibreHoy` (CI) |
+| NuGet | `dotnet/` | `FutbolLibreHoy` / `FutbolLibreHoy.Tool` |
 
 ```bash
 npx futbol-libre-hoy --live

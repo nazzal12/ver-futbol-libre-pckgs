@@ -205,6 +205,20 @@ arcade deploy -e server.py
 
 Homepage / about: https://verfutbollibre.net
 
+## 14) NuGet
+
+```bash
+cd dotnet
+dotnet test FutbolLibreHoy.sln -c Release
+dotnet pack FutbolLibreHoy/FutbolLibreHoy.csproj -c Release -o ./nupkgs
+dotnet pack tool/FutbolLibreHoy.Tool.csproj -c Release -o ./nupkgs
+dotnet nuget push ./nupkgs/*.nupkg -s https://api.nuget.org/v3/index.json -k <NUGET_API_KEY> --skip-duplicate
+```
+
+Package pages:
+- https://www.nuget.org/packages/FutbolLibreHoy
+- https://www.nuget.org/packages/FutbolLibreHoy.Tool
+
 ## Tracking
 
 | Platform | Status | Live URL | Links to site? |
@@ -225,4 +239,4 @@ Homepage / about: https://verfutbollibre.net
 | SourceForge | live | https://sourceforge.net/projects/futbol-libre-en-vivo-hoy/ | yes |
 | GitHub packages | live | https://github.com/nazzal12/ver-futbol-libre-pckgs | yes |
 | Arcade.dev | ready to deploy | | yes |
-| NuGet | stub only | | yes |
+| NuGet | packed, ready to push | | yes |
