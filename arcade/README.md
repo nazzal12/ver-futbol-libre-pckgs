@@ -1,12 +1,50 @@
-# Arcade.dev - Futbol Libre Hoy
+# Futbol Libre Hoy (Arcade.dev)
 
-Wrap the published `futbol-libre-hoy` Python package as an Arcade tool:
+MCP server that lists today's football fixtures and live scores via the published
+`futbol-libre-hoy` Python package. Homepage: https://verfutbollibre.net
+
+## Tools
+
+| Tool | Description |
+| --- | --- |
+| `list_matches` | Text lines of fixtures (+ match URLs) |
+| `list_matches_json` | Same data as JSON |
+
+## Local run
 
 ```bash
-pip install arcade-mcp futbol-libre-hoy
+cd arcade
+pip install -e .
+python server.py stdio
+```
+
+Or HTTP:
+
+```bash
+python server.py http
+```
+
+## Deploy to Arcade Cloud
+
+```bash
+pip install arcade-mcp
+```
+
+```bash
 arcade login
-# implement server.py with MCPApp calling fetch_calendar / format_line
+```
+
+```bash
+cd arcade
 arcade deploy -e server.py
 ```
 
-Homepage field: https://verfutbollibre.net
+Set the listing homepage / about link to https://verfutbollibre.net
+
+## Source
+
+https://github.com/nazzal12/ver-futbol-libre-pckgs
+
+## License
+
+MIT (c) NBK Devs

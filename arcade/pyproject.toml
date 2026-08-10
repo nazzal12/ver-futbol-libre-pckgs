@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "futbol-libre-hoy-arcade"
+version = "1.0.0"
+description = "Arcade MCP server for Futbol Libre Hoy matchday fixtures"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "NBK Devs" }]
+dependencies = [
+  "arcade-mcp>=1.0.0",
+  "futbol-libre-hoy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://verfutbollibre.net"
+Repository = "https://github.com/nazzal12/ver-futbol-libre-pckgs"
+
+[tool.setuptools]
+py-modules = ["server"]

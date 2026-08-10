@@ -191,18 +191,38 @@ Import/publish from GitHub repo `nazzal12/ver-futbol-libre-pckgs`, path `skill/`
 
 Register `https://verfutbollibre.net/llms.txt` with title **Futbol Libre**.
 
+## 13) Arcade.dev
+
+Folder: `arcade/` (`server.py` + `pyproject.toml`).
+
+```bash
+cd arcade
+pip install -e .
+pip install arcade-mcp
+arcade login
+arcade deploy -e server.py
+```
+
+Homepage / about: https://verfutbollibre.net
+
 ## Tracking
 
 | Platform | Status | Live URL | Links to site? |
 | --- | --- | --- | --- |
-| npm | ready | | yes |
-| PyPI | ready | | yes |
-| crates.io | ready | | yes |
-| RubyGems | ready | | yes |
-| Packagist | ready | | yes |
-| pub.dev | ready | | yes |
-| Docker Hub | ready | | yes |
-| HuggingFace | ready | | yes |
-| Smithery | ready | | yes |
-| Context7 | ready | | yes |
-| GitHub | pending push | https://github.com/nazzal12/ver-futbol-libre-pckgs | yes |
+| npm | live | https://www.npmjs.com/package/futbol-libre-hoy | yes |
+| PyPI | live | https://pypi.org/project/futbol-libre-hoy/ | yes |
+| crates.io | live | https://crates.io/crates/futbol-libre-hoy | yes |
+| RubyGems | live | https://rubygems.org/gems/futbol-libre-hoy | yes |
+| Packagist | live | https://packagist.org/packages/nazzal12/futbol-libre-hoy | yes |
+| pub.dev | live | https://pub.dev/packages/futbol_libre_hoy | yes |
+| Docker Hub | live | https://hub.docker.com/r/iamnazzal/futbol-libre-hoy | yes |
+| Snap | live | https://snapcraft.io/futbol-libre-hoy | yes |
+| CocoaPods | live | https://cocoapods.org/pods/FutbolLibreHoy | yes |
+| Hugging Face | live | https://huggingface.co/spaces/iamnazzal/futbol-libre-hoy | yes |
+| Smithery | live | https://smithery.ai/skills/nazzal5448/ver-futbol-libre-hoy | yes |
+| ClawHub | live | https://clawhub.ai/nazzal5448/skills/skill | yes |
+| Context7 | live | https://context7.com/llmstxt/verfutbollibre_net_llms_txt | yes |
+| SourceForge | live | https://sourceforge.net/projects/futbol-libre-en-vivo-hoy/ | yes |
+| GitHub packages | live | https://github.com/nazzal12/ver-futbol-libre-pckgs | yes |
+| Arcade.dev | ready to deploy | | yes |
+| NuGet | stub only | | yes |
