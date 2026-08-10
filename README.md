@@ -26,6 +26,8 @@ Formatting helpers + online calendar client for
 | Packagist | `php/` (+ root `composer.json`) | `nazzal12/futbol-libre-hoy` |
 | pub.dev | `dart/` | `futbol_libre_hoy` |
 | Docker Hub | `docker/` | `iamnazzal/futbol-libre-hoy` |
+| Snap Store | `snap/` | `futbol-libre-hoy` (CI) |
+| CocoaPods | `cocoapods/` | `FutbolLibreHoy` (CI) |
 
 ```bash
 npx futbol-libre-hoy --live

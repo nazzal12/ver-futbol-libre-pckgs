@@ -117,14 +117,25 @@ Publish:
 
 `snapcraft.yaml` lives at `snap/snapcraft.yaml` with `source: js` (repo root = project root).
 
-## 9) CocoaPods (needs macOS for `pod trunk push`)
+## 9) CocoaPods (GitHub Actions / macOS)
 
-`pod` in WSL/Linux cannot push to trunk (needs Xcode). Use the macOS GitHub Actions workflow:
+Package: `cocoapods/FutbolLibreHoy.podspec`  
+Workflow: `.github/workflows/cocoapods.yml` (macOS runner; `pod lib lint` + `pod trunk push`)
 
-1. Operator once: on a Mac, `pod trunk register you@email "Name"` → confirm email → put token in secret `COCOAPODS_TRUNK_TOKEN`
-2. Push tag `cocoapods-1.0.0` to trigger `.github/workflows/cocoapods.yml` (add when podspec is ready)
+One-time trunk registration (needs a Mac or any machine with CocoaPods + network):
 
-Until a Mac/CI secret exists, skip CocoaPods or prepare the podspec only.
+```bash
+pod trunk register nazzal5448@gmail.com "NBK Devs" --description="Futbol Libre Hoy"
+```
+
+Confirm the email link, then copy the trunk token from `~/.netrc` (`machine trunk.cocoapods.org` → `password`) into GitHub secret **`COCOAPODS_TRUNK_TOKEN`**.
+
+Publish:
+
+- Actions → **cocoapods** → **Run workflow**, or
+- `git tag cocoapods-1.0.0 && git push origin cocoapods-1.0.0`
+
+Do **not** use a plain `v*` tag here (that also triggers Snap).
 
 ## 10) Hugging Face Space
 

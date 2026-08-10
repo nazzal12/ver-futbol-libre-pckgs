@@ -1,0 +1,50 @@
+name: cocoapods
+
+on:
+  push:
+    tags:
+      - 'cocoapods-*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-publish:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: cocoapods
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Decide whether to publish
+        id: decide
+        run: |
+          if [ -n "${{ secrets.COCOAPODS_TRUNK_TOKEN }}" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::COCOAPODS_TRUNK_TOKEN secret is missing; lint only."
+          fi
+
+      - name: Install CocoaPods
+        run: gem install cocoapods --no-document
+
+      - name: Lint podspec
+        run: pod lib lint FutbolLibreHoy.podspec --allow-warnings --verbose
+
+      - name: Configure trunk credentials
+        if: steps.decide.outputs.publish == 'true'
+        run: |
+          {
+            echo "machine trunk.cocoapods.org"
+            echo "login user"
+            echo "password ${{ secrets.COCOAPODS_TRUNK_TOKEN }}"
+          } > ~/.netrc
+          chmod 600 ~/.netrc
+
+      - name: Push to CocoaPods trunk
+        if: steps.decide.outputs.publish == 'true'
+        run: pod trunk push FutbolLibreHoy.podspec --allow-warnings --verbose
