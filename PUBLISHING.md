@@ -171,7 +171,21 @@ Note: `/api/v1/calendar` must send CORS (`Access-Control-Allow-Origin`) for the 
 
 ## 11) Smithery / ClawHub
 
-Point marketplace at `skill/` (`SKILL.md`). Homepage = https://verfutbollibre.net
+Folder: `skill/` (`SKILL.md` + LICENSE). Homepage in front matter = https://verfutbollibre.net
+
+### ClawHub (CLI)
+
+```bash
+npm i -g clawhub
+clawhub login
+cd packages
+clawhub skill publish ./skill --slug futbol-libre-hoy --name "Futbol Libre Hoy" --version 1.0.0
+```
+
+### Smithery
+
+Import/publish from GitHub repo `nazzal12/ver-futbol-libre-pckgs`, path `skill/`. Set homepage to the site.
+
 
 ## 12) Context7
 
